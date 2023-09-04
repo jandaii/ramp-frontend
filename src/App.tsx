@@ -37,8 +37,9 @@ export function App() {
       paginatedTransactionsUtils.invalidateData()
       await transactionsByEmployeeUtils.fetchById(employeeId)
     },
-    [paginatedTransactionsUtils, transactionsByEmployeeUtils, transactions]
+    [paginatedTransactionsUtils, transactionsByEmployeeUtils]
   )
+    // [paginatedTransactionsUtils, transactionsByEmployeeUtils, transactions]
 
   useEffect(() => {
     if (employees === null && !employeeUtils.loading) {
@@ -74,7 +75,6 @@ export function App() {
               await loadTransactionsByEmployee(newValue.id)
               setIfPaginated(false);
             }
-
           }}
         />
 

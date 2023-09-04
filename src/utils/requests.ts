@@ -44,13 +44,8 @@ export const getTransactionsByEmployee = ({ employeeId }: RequestByEmployeeParam
   if (!employeeId) {
     throw new Error("Employee id cannot be empty")
   }
-  let currentData = data.transactions;
-  const savedData = localStorage.getItem("transaction");
-  if (savedData) {
-    currentData = JSON.parse(savedData);
-  }
-  console.log("transaction111", currentData)
-  return currentData.filter((transaction) => transaction.employee.id === employeeId)
+  console.log("employee transaction", data.transactions)
+  return data.transactions.filter((transaction) => transaction.employee.id === employeeId)
 }
 
 export const setTransactionApproval = ({ transactionId, value }: SetTransactionApprovalParams): void => {
@@ -63,6 +58,6 @@ export const setTransactionApproval = ({ transactionId, value }: SetTransactionA
   }
 
   transaction.approved = value
-
-
+  // data.transactions.push(transaction)
+  console.log("transactions", data.transactions);
 }

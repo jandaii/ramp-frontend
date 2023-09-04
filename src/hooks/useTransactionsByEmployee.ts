@@ -16,7 +16,8 @@ export function useTransactionsByEmployee(): TransactionsByEmployeeResult {
           employeeId,
         }
       )
-
+      console.log("fetchId runned");
+      console.log("this time daata", data);
       setTransactionsByEmployee(data)
     },
     [fetchWithCache]
