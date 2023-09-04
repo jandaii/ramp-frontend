@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 import { InputCheckbox } from "../InputCheckbox"
 import { TransactionPaneComponent } from "./types"
@@ -16,6 +16,16 @@ export const TransactionPane: TransactionPaneComponent = ({
     console.log("transaction", transaction.approved);
   }, [transaction]);
 
+  const updateTransactionApproval = useCallback(
+    async (newValue: boolean) => {
+      await consumerSetTransactionApproval({
+        transactionId: transaction.id,
+        newValue,
+      })
+      setApproved(newValue)
+    },
+    [consumerSetTransactionApproval, transaction.id]
+  )
   return (
     <div className="RampPane">
       <div className="RampPane--content">
@@ -29,14 +39,7 @@ export const TransactionPane: TransactionPaneComponent = ({
         id={transaction.id}
         checked={approved}
         disabled={loading}
-        onChange={async (newValue) => {
-          await consumerSetTransactionApproval({
-            transactionId: transaction.id,
-            newValue,
-          });
-          setApproved(newValue);
-          console.log("changed");
-        }}
+        onChange={updateTransactionApproval}
       />
     </div>
   )
